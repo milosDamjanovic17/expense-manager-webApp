@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.moose</groupId>
+	<artifactId>expensemanager</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>expensemanager</name>
+	<description>Spring Boot Expense Manager Application</description>
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+	
+	
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId> <!-- STARTER WEB DEPENDENCY -->
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		 <dependency>
+		      <groupId>org.springframework.boot</groupId> <!-- SPRING DATA JPA DEPENDENCY -->
+		      <artifactId>spring-boot-starter-data-jpa</artifactId>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId> <!-- THYMELEAF DEPENDENCY -->
+	      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	    </dependency>
+
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId> <!-- SPRING BOOT DEVTOOLS, RUNTIME SCOPE -->
+	      <artifactId>spring-boot-devtools</artifactId>
+	      <scope>runtime</scope>
+	      <optional>true</optional>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.projectlombok</groupId> <!-- LOMBOK DEPENDENCY FOR MINIMALIZING BOILERPLATE CODE (GETTERS, SETTERS ETC) -->
+	      <artifactId>lombok</artifactId>
+	      <optional>true</optional>
+	    </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId> <!-- SPRING UNIT TESTING DEPENDENCY -->
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			 <groupId>org.modelmapper</groupId> <!-- MODEL MAPPER DEPENDENCY, for automatic mapping Entities to DTO, map this bean to main class -->
+			 <artifactId>modelmapper</artifactId>
+		     <version>3.0.0</version>
+		</dependency>
+		
+		<dependency>
+		      <groupId>com.mysql</groupId> <!-- MySQL connector dependency -->
+		      <artifactId>mysql-connector-j</artifactId>
+		      <scope>runtime</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+		          <excludes>
+		            <exclude>
+		              <groupId>org.projectlombok</groupId>
+		              <artifactId>lombok</artifactId>
+		            </exclude>
+		          </excludes>
+		        </configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
