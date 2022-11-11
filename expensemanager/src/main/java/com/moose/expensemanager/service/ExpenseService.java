@@ -15,7 +15,6 @@ import com.moose.expensemanager.util.DateTimeUtil;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor // does the constructor injection automatically in background, Lombok wasn't processed, so we used manual constructor injection
 public class ExpenseService {
 	
 	private final IExpenseRepository expenseRepository;

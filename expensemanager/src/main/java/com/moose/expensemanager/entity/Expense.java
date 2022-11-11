@@ -10,15 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table( name = "tbl_expenses" )
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+// don't use Lombok in this Entity class
 public class Expense {
 
 	@Id
@@ -33,9 +27,9 @@ public class Expense {
 	
 	
 	public Expense() {
-		
+
 	}
-	
+
 	public Expense(Long id, String expenseId, String name, String description, BigDecimal amount, Date date) {
 		this.id = id;
 		this.expenseId = expenseId;
