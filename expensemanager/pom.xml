@@ -14,7 +14,7 @@
 	<name>expensemanager</name>
 	<description>Spring Boot Expense Manager Application</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	
 	
@@ -64,6 +64,12 @@
 		      <groupId>com.mysql</groupId> <!-- MySQL connector dependency -->
 		      <artifactId>mysql-connector-j</artifactId>
 		      <scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId> <!-- Postgres dependency -->
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		
 	</dependencies>
