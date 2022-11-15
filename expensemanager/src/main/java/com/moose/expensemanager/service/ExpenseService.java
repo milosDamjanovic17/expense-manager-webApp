@@ -44,7 +44,7 @@ public class ExpenseService {
 		// model mapper will automatically map entity to DTO class, it will automatically call for example -> (expDTO.setId(exp.getId())) etc. i tako za sva ostala polja
 		// map(exp, ExpenseDTO.class) => maps from passed parameter Expense exp to a object/class ExpenseDTO.class
 		ExpenseDTO expDTO = modelMapper.map(exp, ExpenseDTO.class);
-			// lets show off our new date format => 
+			// let's show off our new date format =>
 			expDTO.setDateString(DateTimeUtil.convertDateToString(expDTO.getDate()));
 		
 		return expDTO;
