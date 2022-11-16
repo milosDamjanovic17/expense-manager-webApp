@@ -1,6 +1,8 @@
 package com.moose.expensemanager.service;
 
+import java.text.ParseException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -49,6 +51,30 @@ public class ExpenseService {
 		
 		return expDTO;
 	}
-	
-	
+
+	public ExpenseDTO saveExpenseDetails(ExpenseDTO theExpenseDTO) throws ParseException {
+
+		// map the DTO to entity
+		Expense expense = mapToEntity(theExpenseDTO);
+
+		// Save entity to DB
+		expense = expenseRepository.save(expense);
+
+		// map the entity to DTO
+		return mapToDTO(expense);
+	}
+
+	private Expense mapToEntity(ExpenseDTO theExpenseDTO) throws ParseException {
+
+		// map the DTO to entity using modelmapper
+		Expense expense = modelMapper.map(theExpenseDTO, Expense.class);
+		//generate the expense id
+		expense.setExpenseId(UUID.randomUUID().toString());
+
+		// set the expense date
+		expense.setDate(DateTimeUtil.convertStringToDate(theExpenseDTO.getDateString()));
+		// return expense Entity
+		return expense;
+	}
+
 }

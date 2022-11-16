@@ -1,11 +1,16 @@
 package com.moose.expensemanager.controller;
 
+import com.moose.expensemanager.dto.ExpenseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.moose.expensemanager.service.ExpenseService;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.text.ParseException;
 
 @Controller
 public class ExpenseController {
@@ -26,6 +31,29 @@ public class ExpenseController {
 		
 		return "expenses-list";
 	}
+
+	// bind DTO to expense form and show expense form
+	@GetMapping("/createExpense")
+	public String showExpenseForm(Model theModel){
+
+		theModel.addAttribute("expense", new ExpenseDTO());
+
+		return "expense-form";
+	}
+
+	@PostMapping("/saveOrUpdateExpense")
+	public String saveOrUpdateExpenseDetails(@ModelAttribute("expense") ExpenseDTO theExpenseDTO) throws ParseException {
+
+		System.out.println("Printing expenseDTO" +theExpenseDTO);
+
+		expenseService.saveExpenseDetails(theExpenseDTO);
+
+		return "redirect:/expenses";
+	}
+
+
+
+
 	
 	
 	
