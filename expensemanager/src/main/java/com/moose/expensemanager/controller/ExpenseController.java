@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.moose.expensemanager.service.ExpenseService;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 
@@ -51,6 +52,15 @@ public class ExpenseController {
 		return "redirect:/expenses";
 	}
 
+	@GetMapping("/deleteExpense")
+	public String deleteExpense(@RequestParam String id){ // => th:href="@{/deleteExpense(id=${expense.expenseId})}
+
+		System.out.println("Printing the expense Id: " +id);
+
+		expenseService.deleteExpense(id);
+
+		return "redirect:/expenses";
+	}
 
 
 

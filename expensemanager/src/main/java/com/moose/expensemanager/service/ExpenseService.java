@@ -77,4 +77,12 @@ public class ExpenseService {
 		return expense;
 	}
 
+	public void deleteExpense(String id){
+
+		// find and retrieve expense by id
+		Expense existingExpense = expenseRepository.findByExpenseId(id).orElseThrow(() -> new RuntimeException("Expense not found for this id: " +id) );
+		// delete expense
+		expenseRepository.delete(existingExpense);
+	}
+
 }
