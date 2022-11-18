@@ -29,7 +29,9 @@
 					<td th:text=${expense.dateString}></td>
 					<td>
 						<a th:href="@{/deleteExpense(id=${expense.expenseId})}"
-						onclick="return confirm('Are you sure you want to delete this expense?')">Delete</a>
+						onclick="return confirm('Are you sure you want to delete this expense?')">Delete</a> <!-- JS prompt message -->
+						|
+						<a th:href="@{/updateExpense(id=${expense.expenseId})}">Update</a>
 					</td>
 				</tr>
 			</tbody>

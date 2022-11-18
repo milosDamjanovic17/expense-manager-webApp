@@ -20,6 +20,9 @@
     <textarea rows="5" placeholder="Enter description" th:field="*{description}"> </textarea>
     <br/><br/>
     <button type="submit">Submit</button>
+
+    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{expenseId}"/>
   </form>
 
   <div>

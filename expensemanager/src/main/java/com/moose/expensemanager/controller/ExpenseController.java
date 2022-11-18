@@ -52,6 +52,7 @@ public class ExpenseController {
 		return "redirect:/expenses";
 	}
 
+	// let's retrieve the expense Id, and delete it
 	@GetMapping("/deleteExpense")
 	public String deleteExpense(@RequestParam String id){ // => th:href="@{/deleteExpense(id=${expense.expenseId})}
 
@@ -60,6 +61,21 @@ public class ExpenseController {
 		expenseService.deleteExpense(id);
 
 		return "redirect:/expenses";
+	}
+
+	// handler method to show the expense form that we'll update with passed expenseId => (@RequestParam String id)
+	@GetMapping("/updateExpense")
+	public String updateExpense(@RequestParam String id, Model theModel){
+
+		System.out.println("Print expense Id inside update method -> " +id);
+
+		ExpenseDTO expenseDTO = expenseService.getExpenseById(id);
+
+		theModel.addAttribute("expense", expenseDTO);
+
+		/* S OBZIROM DA MORAMO DA VIDIMO VREDNOSTI EXPENSEA KOJI MORAMO DA UPDATEJUEMO, MORAMO VRATITI EXPENSE OBJ I BINDOVATI ZA th:object{expense} U expense-form.html */
+
+		return "expense-form";
 	}
 
 

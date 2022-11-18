@@ -64,12 +64,15 @@ public class ExpenseService {
 		return mapToDTO(expense);
 	}
 
+	// map to entity Util method, it will map DTO details to Entity class which will store in DB
 	private Expense mapToEntity(ExpenseDTO theExpenseDTO) throws ParseException {
 
-		// map the DTO to entity using modelmapper
+		// map the DTO to entity using modelmapper, modelmapper ce umesto nas pozvati gettere za theExpenseDTO i setovati u Expense.class
 		Expense expense = modelMapper.map(theExpenseDTO, Expense.class);
-		//generate the expense id
-		expense.setExpenseId(UUID.randomUUID().toString());
+		//generate the expense id, check if the expenseId already exists
+		if(expense.getId() == null){
+			expense.setExpenseId(UUID.randomUUID().toString());
+		}
 
 		// set the expense date
 		expense.setDate(DateTimeUtil.convertStringToDate(theExpenseDTO.getDateString()));
@@ -83,6 +86,13 @@ public class ExpenseService {
 		Expense existingExpense = expenseRepository.findByExpenseId(id).orElseThrow(() -> new RuntimeException("Expense not found for this id: " +id) );
 		// delete expense
 		expenseRepository.delete(existingExpense);
+	}
+
+	public ExpenseDTO getExpenseById(String id){
+
+		Expense existingExpense = expenseRepository.findByExpenseId(id).orElseThrow(() -> new RuntimeException("Expense not found for this id: " +id) );
+
+		return mapToDTO(existingExpense);
 	}
 
 }
