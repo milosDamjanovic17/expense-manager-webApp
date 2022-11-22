@@ -11,5 +11,8 @@ public class ExpenseFilterDTO {
 
     private String keyword;
 
+    private String sortBy;
 
+    private String startDate;
+    private String endDate;
 }

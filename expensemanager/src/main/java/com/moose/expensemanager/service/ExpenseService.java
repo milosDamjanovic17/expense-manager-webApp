@@ -1,10 +1,12 @@
 package com.moose.expensemanager.service;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.moose.expensemanager.dto.ExpenseFilterDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,13 +97,30 @@ public class ExpenseService {
 		return mapToDTO(existingExpense);
 	}
 
-	public List<ExpenseDTO> getFilteredExpenses(String keyword){
+	public List<ExpenseDTO> getFilteredExpenses(ExpenseFilterDTO theExpenseFilterDTO) throws ParseException{
+
+		String keyword = theExpenseFilterDTO.getKeyword();
+		String sortBy = theExpenseFilterDTO.getSortBy();
+		String startDateString = theExpenseFilterDTO.getStartDate();
+		String endDateString = theExpenseFilterDTO.getEndDate();
+
+		// convert Strings to Date type, ako je unet datum ?(true) konvertuj u Date type :(false) postavi new Date(0) => postavice ga kao null
+		Date startDate = !startDateString.isEmpty() ? DateTimeUtil.convertStringToDate(startDateString) : new Date(0);
+		Date endDate = !endDateString.isEmpty() ? DateTimeUtil.convertStringToDate(endDateString) : new Date(System.currentTimeMillis());
 
 		// get the list
-		List<Expense> entityList = expenseRepository.findByNameContaining(keyword);
-
+		List<Expense> entityList = expenseRepository.findByNameContainingAndDateBetween(keyword, startDate, endDate);
 		// convert it to DTO
 		List<ExpenseDTO> filteredDTOList = entityList.stream().map(this::mapToDTO).collect(Collectors.toList());
+
+		// ako je odabrana opcija sortiranja po datumu, sortiraj date, ako nije, sortiraj amount
+		if(sortBy.equals("date")){
+			// sort by expense date
+			filteredDTOList.sort(((o1, o2) -> o2.getDate().compareTo(o1.getDate())));
+		}else{
+			// sort by amount
+			filteredDTOList.sort((o1, o2) -> o2.getAmount().compareTo(o1.getAmount()));
+		}
 
 		return filteredDTOList;
 	}

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -23,11 +24,11 @@ public class ExpenseFilterController {
     }
 
     @GetMapping("/filterExpenses")
-    public String filterExpenses(@ModelAttribute("filter") ExpenseFilterDTO expenseFilterDTO, Model theModel){
+    public String filterExpenses(@ModelAttribute("filter") ExpenseFilterDTO expenseFilterDTO, Model theModel) throws ParseException {
 
         System.out.println("Printing the filter DTO: " +expenseFilterDTO);
 
-        List<ExpenseDTO> localList = expenseService.getFilteredExpenses(expenseFilterDTO.getKeyword());
+        List<ExpenseDTO> localList = expenseService.getFilteredExpenses(expenseFilterDTO);
 
         theModel.addAttribute("expensesList", localList );
 
