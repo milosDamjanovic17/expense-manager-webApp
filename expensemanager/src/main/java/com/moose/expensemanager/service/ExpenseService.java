@@ -95,4 +95,15 @@ public class ExpenseService {
 		return mapToDTO(existingExpense);
 	}
 
+	public List<ExpenseDTO> getFilteredExpenses(String keyword){
+
+		// get the list
+		List<Expense> entityList = expenseRepository.findByNameContaining(keyword);
+
+		// convert it to DTO
+		List<ExpenseDTO> filteredDTOList = entityList.stream().map(this::mapToDTO).collect(Collectors.toList());
+
+		return filteredDTOList;
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.moose.expensemanager.controller;
 
 import com.moose.expensemanager.dto.ExpenseDTO;
+import com.moose.expensemanager.dto.ExpenseFilterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ public class ExpenseController {
 	public String showExpenseList(Model theModel) {
 		
 		theModel.addAttribute("expensesList", expenseService.getAllExpenses());
+		theModel.addAttribute("filter", new ExpenseFilterDTO());
 		
 		return "expenses-list";
 	}
