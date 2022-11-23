@@ -1,11 +1,15 @@
 package com.moose.expensemanager.service;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.Bidi;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.ibm.icu.text.NumberFormat;
 import com.moose.expensemanager.dto.ExpenseFilterDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,5 +128,19 @@ public class ExpenseService {
 
 		return filteredDTOList;
 	}
+
+	// let's calculate total expense amount
+	public String totalExpenses(List<ExpenseDTO> expenses){
+
+		BigDecimal sum = new BigDecimal(0);
+
+		BigDecimal total = expenses.stream().map(x -> x.getAmount().add(sum))
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+		NumberFormat noFormat = NumberFormat.getCurrencyInstance(new Locale("en", "rs"));
+
+		return noFormat.format(total).substring(2); // pokazace u dva decimalna broja
+	}
+
 
 }
