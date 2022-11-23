@@ -2,9 +2,11 @@ package com.moose.expensemanager.controller;
 
 import com.moose.expensemanager.dto.ExpenseDTO;
 import com.moose.expensemanager.dto.ExpenseFilterDTO;
+import com.moose.expensemanager.validator.ExpenseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.moose.expensemanager.service.ExpenseService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
@@ -52,9 +55,17 @@ public class ExpenseController {
 	}
 
 	@PostMapping("/saveOrUpdateExpense")
-	public String saveOrUpdateExpenseDetails(@ModelAttribute("expense") ExpenseDTO theExpenseDTO) throws ParseException {
+	public String saveOrUpdateExpenseDetails(@Valid @ModelAttribute("expense") ExpenseDTO theExpenseDTO,
+											 BindingResult theBindingResult) throws ParseException {
 
 		System.out.println("Printing expenseDTO" +theExpenseDTO);
+
+		// create validator Obj, call the method and pass theBinding result
+		new ExpenseValidator().validate(theExpenseDTO, theBindingResult);
+
+		if(theBindingResult.hasErrors()){
+			return "expense-form";
+		}
 
 		expenseService.saveExpenseDetails(theExpenseDTO);
 
