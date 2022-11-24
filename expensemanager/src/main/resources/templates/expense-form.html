@@ -10,11 +10,15 @@
   <h1>Create New Expense</h1>
   <hr>
 
-  <form th:action="@{/saveOrUpdateExpense}" th:object="${expense}" method="post">
+  <form th:action="@{/saveOrUpdateExpense}" th:object="${expense}" method="post" id="expenseform"> <!--  id="expenseform" => linked with expense-form.js we'll use it for client side jQuery validation-->
     <input type="text" placeholder="Enter expense name" th:field="*{name}"/>
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span> <!-- binding error message to validations inside ExpenseDTO class for name -->
     <br/><br/>
-    <input type="text" placeholder="Enter expense amount" th:field="*{amount}"/>
+    <input type="text"
+           placeholder="Enter expense amount"
+           th:field="*{amount}"
+           id="amount"
+           oninput="validateNumber(this);"/>
     <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span> <!-- binding error message to validations inside ExpenseDTO class for amount -->
     <br/><br/>
     <input type="text" th:field="*{dateString}" placeholder="dd//mm/yyyy" id="createdAt"/>
@@ -34,6 +38,7 @@
 
   <script th:src="@{/js/js/jquery.js}"></script>
   <script th:src="@{/js/js/jquery-ui.js}"></script>
+  <script th:src="@{/js/js/jquery-validator.js}"></script>
   <script th:src="@{/js/js/expense-form.js}"></script>
 </body>
 </html>
