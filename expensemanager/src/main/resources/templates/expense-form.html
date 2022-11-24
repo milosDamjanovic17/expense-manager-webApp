@@ -14,6 +14,7 @@
     <input type="text" placeholder="Enter expense name" th:field="*{name}"/>
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span> <!-- binding error message to validations inside ExpenseDTO class for name -->
     <br/><br/>
+
     <input type="text"
            placeholder="Enter expense amount"
            th:field="*{amount}"
@@ -21,11 +22,14 @@
            oninput="validateNumber(this);"/>
     <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span> <!-- binding error message to validations inside ExpenseDTO class for amount -->
     <br/><br/>
+
     <input type="text" th:field="*{dateString}" placeholder="dd//mm/yyyy" id="createdAt"/>
     <span th:if="${#fields.hasErrors('dateString')}" th:errors="*{dateString}"></span> <!-- binding error message to custom validations for dateString -->
     <br/><br/>
+
     <textarea rows="5" placeholder="Enter description" th:field="*{description}"> </textarea>
     <br/><br/>
+
     <button type="submit">Submit</button>
 
     <input type="hidden" th:field="*{id}"/>
