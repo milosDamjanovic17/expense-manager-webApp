@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page - Expense Manager</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <hr/>
+
+    <div th:if="${successMsg}">
+        <h1>Success</h1>
+        <p>Thanks for registering your account! Now you can start adding your expenses</p>
+    </div>
+
+    <div>
+        <form>
+            <input type="text" name="email" placeholder="Enter email"/>
+            <br><br>
+            <input type="password" name="password" placeholder="Enter password"/>
+            <br><br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+
+</body>
+</html>

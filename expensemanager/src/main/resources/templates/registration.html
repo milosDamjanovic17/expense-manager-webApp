@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page - Expense Manager</title>
+</head>
+<body>
+    <h1>Registration</h1>
+    <hr/>
+
+    <form th:action="@{/register}" th:object="${user}" method="post">
+        <input type="text" placeholder="Enter name" th:field="*{name}"/>
+        <br><br>
+        <input type="text" placeholder="Enter email address" th:field="*{email}"/>
+        <br><br>
+        <input type="password" placeholder="Enter password" th:field="*{password}"/>
+        <br><br>
+        <input type="password" placeholder="Confirm password" th:field="*{confirmPassword}" />
+        <br><br>
+        <button type="submit"> Register </button>
+    </form>
+
+</body>
+</html>
