@@ -8,17 +8,28 @@
     <h1>Registration</h1>
     <hr/>
 
-    <form th:action="@{/register}" th:object="${user}" method="post">
+    <form th:action="@{/register}" th:object="${user}" method="post" id="registrationForm">
         <input type="text" placeholder="Enter name" th:field="*{name}"/>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         <br><br>
+
         <input type="text" placeholder="Enter email address" th:field="*{email}"/>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
         <br><br>
+
         <input type="password" placeholder="Enter password" th:field="*{password}"/>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
         <br><br>
+
         <input type="password" placeholder="Confirm password" th:field="*{confirmPassword}" />
         <br><br>
+
         <button type="submit"> Register </button>
     </form>
 
+
+    <script th:src="@{/js/js/jquery.js}"></script>
+    <script th:src="@{/js/js/jquery-validator.js}"></script>
+    <script th:src="@{/js/js/registration.js}"></script>
 </body>
 </html>

@@ -1,9 +1,17 @@
 package com.moose.expensemanager.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class UserDTO {
 
+    @NotBlank(message = "Username shouldn't be null!")
     private String name;
+    @Email(message = "Invalid email address")
     private String email;
+    @NotBlank(message = "Password shouldn't be null")
+    @Size(min = 5, message = "Password should have minimum {min} characters")
     private String password;
     private String confirmPassword;
 
