@@ -24,7 +24,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http    /* Config spring security so everyone can access main home, login, registration page line => 26-29 */
+        http    /* Config spring security so everyone can access main home, login, registration page line => 28-31 */
                     .authorizeRequests()
                     .antMatchers("/", "/login", "/registration")
                     .permitAll()
