@@ -8,7 +8,10 @@
 <body>
 
   <h1>Create New Expense</h1>
-  <hr>
+  <hr/>
+  <div>
+    <a th:href="@{/logout}">Logout</a>
+  </div>
 
   <form th:action="@{/saveOrUpdateExpense}" th:object="${expense}" method="post" id="expenseform"> <!--  id="expenseform" => linked with expense-form.js we'll use it for client side jQuery validation-->
     <input type="text" placeholder="Enter expense name" th:field="*{name}"/>

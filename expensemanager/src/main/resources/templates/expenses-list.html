@@ -8,6 +8,9 @@
 		<h1>List Of Expenses</h1>
 		<hr/>
 		<div>
+			<a th:href="@{/logout}">Logout</a>
+		</div>
+		<div>
 			<h2>You are viewing the expenses totalling of
 				<span th:text="'RS'+${totalExpenses}"></span>
 			</h2>

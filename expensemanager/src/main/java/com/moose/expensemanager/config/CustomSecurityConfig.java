@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.AntPathMatcher;
 
 @Configuration
 public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,18 +24,23 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http    /* Config spring security so everyone can access main home, login, registration page */
-                .authorizeRequests()
-                .antMatchers("/", "/login", "/registration")
-                .permitAll()
-                .anyRequest().authenticated()
+        http    /* Config spring security so everyone can access main home, login, registration page line => 26-29 */
+                    .authorizeRequests()
+                    .antMatchers("/", "/login", "/registration")
+                    .permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .csrf().disable()
-                .formLogin().loginPage("/login")
-                .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/expenses")
-                .usernameParameter("email") // reference username to field in "/login"
-                .passwordParameter("password"); // reference password to field in "/login"
+                    .csrf().disable()
+                    .formLogin().loginPage("/login")
+                    .failureUrl("/login?error=true")
+                    .defaultSuccessUrl("/expenses")
+                    .usernameParameter("email") // reference username to field in "/login"
+                    .passwordParameter("password") // reference password to field in "/login"
+                .and()
+                    .logout().invalidateHttpSession(true).clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login?logout")
+                    .permitAll();
 
 
     }

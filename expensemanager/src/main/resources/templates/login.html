@@ -18,6 +18,9 @@
             <div th:if="${param.error}">
                 Invalid email or password
             </div>
+            <div th:if="${param.logout}">
+                You successfully logged out
+            </div>
             <input type="text" name="email" placeholder="Enter email"/>
             <br><br>
 
