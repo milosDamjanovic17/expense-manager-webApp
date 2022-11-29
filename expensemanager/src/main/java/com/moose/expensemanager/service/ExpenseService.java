@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import com.ibm.icu.text.NumberFormat;
 import com.moose.expensemanager.dto.ExpenseFilterDTO;
+import com.moose.expensemanager.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,19 +28,24 @@ public class ExpenseService {
 	
 	private final IExpenseRepository expenseRepository;
 	private final ModelMapper modelMapper;
+	private final UserService userService;
 
 	// inject fields
 	@Autowired
-	public ExpenseService(IExpenseRepository theExpenseRepository, ModelMapper modelMapper) {
+	public ExpenseService(IExpenseRepository theExpenseRepository, ModelMapper modelMapper, UserService userService) {
 		
 		this.modelMapper = modelMapper;
 		this.expenseRepository = theExpenseRepository;
+		this.userService = userService;
 	}
 	
 	
 	// get all the data from DB and map it to data transfer object(DTO)
 	public List<ExpenseDTO> getAllExpenses(){
-		List<Expense> list = expenseRepository.findAll();
+
+		User user = userService.getLoggedInUser();
+
+		List<Expense> list = expenseRepository.findByUserId(user.getId());
 		
 		List<ExpenseDTO> expenseList = list.stream().map(this::mapToDTO).collect(Collectors.toList());
 		
@@ -62,6 +68,9 @@ public class ExpenseService {
 
 		// map the DTO to entity
 		Expense expense = mapToEntity(theExpenseDTO);
+
+		// add logged user to expense entity
+		expense.setUser(userService.getLoggedInUser());
 
 		// Save entity to DB
 		expense = expenseRepository.save(expense);
@@ -108,12 +117,13 @@ public class ExpenseService {
 		String startDateString = theExpenseFilterDTO.getStartDate();
 		String endDateString = theExpenseFilterDTO.getEndDate();
 
+		User user = userService.getLoggedInUser();
 		// convert Strings to Date type, ako je unet datum ?(true) konvertuj u Date type :(false) postavi new Date(0) => postavice ga kao null
 		Date startDate = !startDateString.isEmpty() ? DateTimeUtil.convertStringToDate(startDateString) : new Date(0);
 		Date endDate = !endDateString.isEmpty() ? DateTimeUtil.convertStringToDate(endDateString) : new Date(System.currentTimeMillis());
 
 		// get the list
-		List<Expense> entityList = expenseRepository.findByNameContainingAndDateBetween(keyword, startDate, endDate);
+		List<Expense> entityList = expenseRepository.findByNameContainingAndDateBetweenAndUserId(keyword, startDate, endDate, user.getId());
 		// convert it to DTO
 		List<ExpenseDTO> filteredDTOList = entityList.stream().map(this::mapToDTO).collect(Collectors.toList());
 

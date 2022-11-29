@@ -32,6 +32,10 @@ public class ExpenseFilterController {
 
         theModel.addAttribute("expensesList", localList );
 
+        String totalExpenses = expenseService.totalExpenses(localList);
+
+        theModel.addAttribute("totalExpenses", totalExpenses);
+
         return "expenses-list";
     }
 

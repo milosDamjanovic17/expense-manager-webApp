@@ -16,7 +16,9 @@ public interface IExpenseRepository extends JpaRepository<Expense, Long> {
     // let's create a JPA finder method that will extract the Expense obj with passed ExpenseId
 	Optional<Expense>findByExpenseId(String id); // => SELECT * FROM tbl_expenses WHERE expenseId = ?
 
-    // let's create a method for finding the expense by name, and filter it by startDate and endDate
-    List<Expense>findByNameContainingAndDateBetween(String keyword, Date startDate, Date endDate);  // => SELECT * FROM tbl_expenses WHERE name LIKE %keyword%
+    // let's create a method for finding the expense by name and userId, and filter it by startDate and endDate
+    List<Expense>findByNameContainingAndDateBetweenAndUserId(String keyword, Date startDate, Date endDate, Long id);// => SELECT * FROM tbl_expenses WHERE name LIKE %keyword% AND user_id = ?
+
+    List<Expense> findByUserId(Long id);
 	
 }

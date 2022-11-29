@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.util.AntPathMatcher;
 
 @Configuration
 public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,7 +25,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http    /* Config spring security so everyone can access main home, login, registration page line => 28-31 */
                     .authorizeRequests()
-                    .antMatchers("/", "/login", "/registration")
+                    .antMatchers("/", "/login", "/register")
                     .permitAll()
                     .anyRequest().authenticated()
                 .and()
@@ -57,7 +56,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    // configure and implement our login authenctiacation logic, CustomUserDetailsService
+    // configure and implement our login authentication logic, CustomUserDetailsService
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService); // reference to our custom UserDetails method authentication

@@ -5,8 +5,8 @@
     <title>Register Page - Expense Manager</title>
 </head>
 <body>
-    <h1>Registration</h1>
-    <hr/>
+<h1>Registration</h1>
+<hr/>
 
     <form th:action="@{/register}" th:object="${user}" method="post" id="registrationForm">
         <input type="text" placeholder="Enter name" th:field="*{name}"/>
@@ -21,10 +21,10 @@
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
         <br><br>
 
-        <input type="password" placeholder="Confirm password" th:field="*{confirmPassword}" />
+        <input type="password" placeholder="Confirm password" th:field="*{confirmPassword}"/>
         <br><br>
 
-        <button type="submit"> Register </button>
+        <button type="submit"> Register</button>
     </form>
 
 

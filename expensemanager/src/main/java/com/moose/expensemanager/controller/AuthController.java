@@ -29,8 +29,10 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String showRegistrationPage(Model theModel){
+
+        System.out.println("IN REGISTRATION");
 
         theModel.addAttribute("user", new UserDTO());
 

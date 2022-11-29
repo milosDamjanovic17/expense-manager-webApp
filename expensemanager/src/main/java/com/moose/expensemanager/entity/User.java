@@ -18,7 +18,7 @@ public class User {
     private Long id;
 
     @Column(unique = true)
-    private String userId;
+    private String userId; //UUID
 
     private String name;
 
