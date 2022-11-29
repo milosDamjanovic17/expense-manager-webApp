@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import com.ibm.icu.text.NumberFormat;
 import com.moose.expensemanager.dto.ExpenseFilterDTO;
 import com.moose.expensemanager.entity.User;
+import com.moose.expensemanager.exception.ExpenseNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,14 +99,14 @@ public class ExpenseService {
 	public void deleteExpense(String id){
 
 		// find and retrieve expense by id
-		Expense existingExpense = expenseRepository.findByExpenseId(id).orElseThrow(() -> new RuntimeException("Expense not found for this id: " +id) );
+		Expense existingExpense = expenseRepository.findByExpenseId(id).orElseThrow(() -> new ExpenseNotFoundException("Expense not found for this id: " +id) ); // throw our custom ExpenseNotFoundException
 		// delete expense
 		expenseRepository.delete(existingExpense);
 	}
 
 	public ExpenseDTO getExpenseById(String id){
 
-		Expense existingExpense = expenseRepository.findByExpenseId(id).orElseThrow(() -> new RuntimeException("Expense not found for this id: " +id) );
+		Expense existingExpense = expenseRepository.findByExpenseId(id).orElseThrow(() -> new ExpenseNotFoundException("Expense not found for this id: " +id) ); // throw our custom ExpenseNotFoundException
 
 		return mapToDTO(existingExpense);
 	}

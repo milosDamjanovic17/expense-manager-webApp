@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <div th:if="${notFound}">
+    <h1>Expense Not Available</h1>
+    <p th:text="${message}"></p>
+    <a th:href="@{/expenses}">Back to Home Page</a>
+  </div>
+
+  <div th:if="${serverError}">
+      <h1>Contact Administrator</h1>
+      <p th:text="${message}"></p>
+      <p th:text="${stackTrack}">Something went wrong, please contact your administrator</p>
+      <a th:href="@{/expenses}">Back to Home Page</a>
+  </div>
+
+</body>
+</html>
