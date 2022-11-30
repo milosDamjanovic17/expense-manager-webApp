@@ -1,0 +1,19 @@
+.box-layout {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: #242B2E;
+}
+
+.box-layout__box {
+    opacity: 90%;
+    border-radius: 3px;
+    width: 22rem;
+    padding-top: 1.6rem;
+}
+
+.box-layout__title {
+    margin-bottom: 1.6rem;
+    line-height: 1.6rem;
+}

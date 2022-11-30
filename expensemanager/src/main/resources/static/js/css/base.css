@@ -8,13 +8,12 @@ a:hover, a {
     color: white;
 }
 
-.help-block{
-    color:red;
+.help-block {
+    color: red;
 }
 
 .font-size-medium {
     font-size: 1.6rem;
-
 }
 
 .font-size-small {

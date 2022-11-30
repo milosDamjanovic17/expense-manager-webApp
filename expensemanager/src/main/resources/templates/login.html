@@ -4,29 +4,66 @@
     <meta charset="UTF-8">
     <title>Login Page - Expense Manager</title>
     <link rel="stylesheet" th:href="@{/js/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/js/css/base.css}">
+    <link rel="stylesheet" th:href="@{/js/css/login.css}">
 </head>
 <body>
-    <h1>Login</h1>
-    <hr/>
 
-    <div>
-        <form id="loginForm" th:action="@{/login}" method="post">
-            <div th:if="${param.error}">
-                Invalid email or password
+    <div class="box-layout justify-content-center">
+
+        <div class="card box-layout__box text-center">
+
+            <div class="card-header border-bottom-0 pb-0 bg-white">
+                <h1 class="box-layout__title">Expense Manager</h1>
+                <p class="box-layout__title">Start creating, tracking and controlling your expenses!</p>
             </div>
-            <div th:if="${param.logout}">
-                You successfully logged out
+
+            <div class="card-body pt-0">
+                <form id="loginForm" th:action="@{/login}" method="post">
+                    <div th:if="${param.error}">
+                        <div class="alert help-block">
+                            Invalid email or password
+                        </div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div class="alert help-block">
+                            You successfully logged out!
+                        </div>
+                    </div>
+
+                    <input
+                            type="text"
+                            name="email"
+                            placeholder="Enter email"
+                            class="form-control mb-3"
+                            autofocus="autofocus"
+                    />
+
+
+                    <input type="password"
+                           name="password"
+                           placeholder="Enter password"
+                           class="form-control mb-3"
+                           autofocus="autofocus"
+                    />
+
+
+                    <button type="submit" class="btn form-control button_default text">Login</button>
+                </form>
+
             </div>
-            <input type="text" name="email" placeholder="Enter email"/>
-            <br><br>
 
-            <input type="password" name="password" placeholder="Enter password"/>
-            <br><br>
+            <div class="card-footer bg-white border-top-0">
+                <span class="float-right">
+                  New here? - <a th:href="@{/register}"
+                       class="base-color font-weight-bold"> Register now and start creating and tracking your expenses!</a>
+                </span>
+            </div>
 
-            <button type="submit">Login</button>
-        </form>
+        </div>
 
-        <a th:href="@{/register}">New here? Register now and start creating and tracking your expenses!</a>
+
+
     </div>
 
     <script th:src="@{/js/js/jquery.js}"></script>

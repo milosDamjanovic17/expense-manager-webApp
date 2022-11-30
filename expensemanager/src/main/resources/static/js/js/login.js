@@ -22,7 +22,13 @@ $(function(){
                 password: {
                     required: 'Please enter your password'
                 }
+            },
+            errorElement: 'em',
+            errorPlacement: function(error, element){
+                error.addClass('help-block');
+                error.insertAfter(element);
             }
+
 
         })
 
