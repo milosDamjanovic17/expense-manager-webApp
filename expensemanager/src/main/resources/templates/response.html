@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+    <div th:if="${successMsg}">
+        <h1>Success</h1>
+        <p>Thanks for registering your account! Now you can start adding your expenses</p>
+        <a th:href="@{/login}">Go To Login Page</a>
+    </div>
 
   <div th:if="${notFound}">
     <h1>Expense Not Available</h1>

@@ -18,7 +18,6 @@ import java.util.UUID;
 public class UserService {
 
     private final IUserRepository userRepo;
-
     private final IUserDao theUserDao;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;

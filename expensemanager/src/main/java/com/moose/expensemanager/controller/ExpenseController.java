@@ -2,6 +2,8 @@ package com.moose.expensemanager.controller;
 
 import com.moose.expensemanager.dto.ExpenseDTO;
 import com.moose.expensemanager.dto.ExpenseFilterDTO;
+import com.moose.expensemanager.entity.User;
+import com.moose.expensemanager.util.DateTimeUtil;
 import com.moose.expensemanager.validator.ExpenseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -34,12 +37,15 @@ public class ExpenseController {
 	@GetMapping("/expenses")
 	public String showExpenseList(Model theModel) {
 
+
 		List<ExpenseDTO> allExpenses = expenseService.getAllExpenses();
 
 		theModel.addAttribute("expensesList", allExpenses);
-		theModel.addAttribute("filter", new ExpenseFilterDTO());
+		theModel.addAttribute("filter", new ExpenseFilterDTO(DateTimeUtil.getCurrentMonthStartDate(), DateTimeUtil.getCurrentMonthDate()));
+
 		String totalExpenses = expenseService.totalExpenses(allExpenses);
 		theModel.addAttribute("totalExpenses", totalExpenses);
+
 
 
 		return "expenses-list";

@@ -20,5 +20,7 @@ public interface IExpenseRepository extends JpaRepository<Expense, Long> {
     List<Expense>findByNameContainingAndDateBetweenAndUserId(String keyword, Date startDate, Date endDate, Long id);// => SELECT * FROM tbl_expenses WHERE name LIKE %keyword% AND user_id = ?
 
     List<Expense> findByUserId(Long id);
+
+    List<Expense>findByDateBetweenAndUserId(Date startDate, Date endDate, Long id);
 	
 }

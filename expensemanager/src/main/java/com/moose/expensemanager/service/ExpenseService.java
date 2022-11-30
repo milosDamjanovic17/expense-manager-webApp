@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.Bidi;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import com.ibm.icu.text.NumberFormat;
 import com.moose.expensemanager.dto.ExpenseFilterDTO;
 import com.moose.expensemanager.entity.User;
 import com.moose.expensemanager.exception.ExpenseNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,13 +42,15 @@ public class ExpenseService {
 		this.userService = userService;
 	}
 	
-	
 	// get all the data from DB and map it to data transfer object(DTO)
 	public List<ExpenseDTO> getAllExpenses(){
 
 		User user = userService.getLoggedInUser();
 
-		List<Expense> list = expenseRepository.findByUserId(user.getId());
+		List<Expense> list = expenseRepository.findByDateBetweenAndUserId(
+				Date.valueOf(LocalDate.now().withDayOfMonth(1)),
+				Date.valueOf(LocalDate.now()),
+				user.getId());
 		
 		List<ExpenseDTO> expenseList = list.stream().map(this::mapToDTO).collect(Collectors.toList());
 		
@@ -69,6 +73,11 @@ public class ExpenseService {
 
 		// map the DTO to entity
 		Expense expense = mapToEntity(theExpenseDTO);
+
+		// handle the exception for future dates
+		if(!expense.getDate().before(new java.util.Date())){
+			throw new RuntimeException("Future date is prohibited");
+		}
 
 		// add logged user to expense entity
 		expense.setUser(userService.getLoggedInUser());
@@ -118,10 +127,12 @@ public class ExpenseService {
 		String startDateString = theExpenseFilterDTO.getStartDate();
 		String endDateString = theExpenseFilterDTO.getEndDate();
 
-		User user = userService.getLoggedInUser();
+
 		// convert Strings to Date type, ako je unet datum ?(true) konvertuj u Date type :(false) postavi new Date(0) => postavice ga kao null
 		Date startDate = !startDateString.isEmpty() ? DateTimeUtil.convertStringToDate(startDateString) : new Date(0);
 		Date endDate = !endDateString.isEmpty() ? DateTimeUtil.convertStringToDate(endDateString) : new Date(System.currentTimeMillis());
+
+		User user = userService.getLoggedInUser();
 
 		// get the list
 		List<Expense> entityList = expenseRepository.findByNameContainingAndDateBetweenAndUserId(keyword, startDate, endDate, user.getId());

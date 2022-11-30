@@ -3,6 +3,9 @@ package com.moose.expensemanager.controller;
 import com.moose.expensemanager.dto.UserDTO;
 import com.moose.expensemanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +29,13 @@ public class AuthController {
     @GetMapping({"/login", "/"}) // we can assign multiple paths that will show login.html
     public String showLoginPage(){
 
-        return "login";
+        // check if the user is already logged, if the user wants to access login page while he is already logged, redirect him to expenses home page
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null || auth instanceof AnonymousAuthenticationToken){
+            return "login";
+        }
+
+        return "redirect:/expenses";
     }
 
     @GetMapping("/register")
@@ -52,7 +61,7 @@ public class AuthController {
 
         theModel.addAttribute("successMsg", true);
 
-        return "login";
+        return "response";
     }
 
 }
