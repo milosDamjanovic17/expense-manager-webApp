@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page - Expense Manager</title>
+    <link rel="stylesheet" th:href="@{/js/css/bootstrap.css}">
 </head>
 <body>
     <h1>Login</h1>
     <hr/>
-
-
 
     <div>
         <form id="loginForm" th:action="@{/login}" method="post">
@@ -28,11 +27,11 @@
         </form>
 
         <a th:href="@{/register}">New here? Register now and start creating and tracking your expenses!</a>
-
     </div>
 
     <script th:src="@{/js/js/jquery.js}"></script>
     <script th:src="@{/js/js/jquery-validator.js}"></script>
+    <script th:src="@{/js/js/bootstrap.js}"></script>
     <script th:src="@{/js/js/login.js}"></script>
 </body>
 </html>
