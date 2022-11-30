@@ -20,7 +20,7 @@ public class ExpenseFilterController {
     @Autowired
     public ExpenseFilterController(ExpenseService theExpenseService){
 
-        expenseService = theExpenseService;
+        this.expenseService = theExpenseService;
     }
 
     @GetMapping("/filterExpenses")
