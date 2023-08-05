@@ -53,6 +53,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId> <!-- H2 dependency for testing purposes -->
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		
 		<dependency>
 			 <groupId>org.modelmapper</groupId> <!-- MODEL MAPPER DEPENDENCY, for automatic mapping Entities to DTO, map this bean to main class -->

@@ -38,11 +38,6 @@ public class UserService {
             theUserDao.save(user);
     }
 
-    private User mapToEntity(UserDTO theUserDTO){
-
-        return modelMapper.map(theUserDTO, User.class);
-    }
-
     public User getLoggedInUser(){
         // once the user is validated and logged Spring Security will send an Authentication object, defined in our Security Config class
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -50,6 +45,11 @@ public class UserService {
 
         return userRepo.findByEmail(loggedUserEmail).orElseThrow(() ->
                 new UsernameNotFoundException("User email not found: " +loggedUserEmail));
+    }
+
+    private User mapToEntity(UserDTO theUserDTO){
+
+        return modelMapper.map(theUserDTO, User.class);
     }
 
 }

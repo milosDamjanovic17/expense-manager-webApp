@@ -20,6 +20,5 @@ public class UserDaoImpl implements IUserDao{
         Session currentSession = entityManager.unwrap(Session.class);
 
         currentSession.saveOrUpdate(user);
-
     }
 }
