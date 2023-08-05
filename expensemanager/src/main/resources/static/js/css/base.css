@@ -3,9 +3,14 @@ a:hover, a {
     color: #8B78E6;
 }
 
-.button_default, .button_default:hover {
+.button_default {
     background-color: #8B78E6;
     color: white;
+}
+
+.button_default:hover{
+    background-color: white;
+    color: #8B78E6;
 }
 
 .help-block {

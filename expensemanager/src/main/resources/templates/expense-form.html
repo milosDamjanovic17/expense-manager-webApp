@@ -6,48 +6,92 @@
     <link rel="stylesheet" th:href="@{/js/css/jquery-ui.css}"/>
     <link rel="stylesheet" th:href="@{/js/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/js/css/base.css}">
+    <link rel="stylesheet" th:href="@{/js/css/expense-form.css}">
 </head>
 <body>
 
-  <h1>Create New Expense</h1>
-  <hr/>
-  <div>
-    <a th:href="@{/logout}">Logout</a>
-  </div>
+  <nav class="fixed-top bg-header-color py-4">
+    <div class="app-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <a th:href="@{/expenses}" class="text-white">
+          <span class="font-size-medium font-weight-bold">
+            Expense Manager
+          </span>
+        </a>
+        <div>
+          <a th:href="@{/logout}" class="font-size-small btn button_default">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="main-content">
 
-  <form th:action="@{/saveOrUpdateExpense}" th:object="${expense}" method="post" id="expenseform"> <!--  id="expenseform" => linked with expense-form.js we'll use it for client side jQuery validation-->
-    <input type="text" placeholder="Enter expense name" th:field="*{name}"/>
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span> <!-- binding error message to validations inside ExpenseDTO class for name -->
-    <br/><br/>
+    <div class="container-fluid bg-light py-4 mb-4">
+      <div class="app-header">
+        <h1 th:text="${expense.id} != null ? 'Update Expense':'Create Expense'"></h1>
+      </div>
+    </div>
 
-    <input type="text"
-           placeholder="Enter expense amount"
-           th:field="*{amount}"
-           id="amount"
-           oninput="validateNumber(this);"/>
-    <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span> <!-- binding error message to validations inside ExpenseDTO class for amount -->
-    <br/><br/>
+    <div class="app-header">
+      <form th:action="@{/saveOrUpdateExpense}" th:object="${expense}" method="post" id="expenseform"> <!--  id="expenseform" => linked with expense-form.js we'll use it for client side jQuery validation-->
 
-    <input type="text" th:field="*{dateString}" placeholder="dd//mm/yyyy" id="createdAt"/>
-    <span th:if="${#fields.hasErrors('dateString')}" th:errors="*{dateString}"></span> <!-- binding error message to custom validations for dateString -->
-    <br/><br/>
+        <input type="text"
+               placeholder="Enter expense name"
+               th:field="*{name}"
+               class="form-control col-12 col-sm-12 col-md-6 input-width mb-3"
+               autofocus="autofocus"
+        />
+        <span th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}"></span> <!-- binding error message to validations inside ExpenseDTO class for name -->
 
-    <textarea rows="5" placeholder="Enter description" th:field="*{description}"> </textarea>
-    <br/><br/>
+        <input type="text"
+               placeholder="Enter expense amount"
+               th:field="*{amount}"
+               id="amount"
+               oninput="validateNumber(this);"
+               class="form-control col-12 col-sm-12 col-md-6 input-width mb-3"
+        />
+        <span th:if="${#fields.hasErrors('amount')}"
+              th:errors="*{amount}"></span> <!-- binding error message to validations inside ExpenseDTO class for amount -->
 
-    <button type="submit">Submit</button>
 
-    <input type="hidden" th:field="*{id}"/>
-    <input type="hidden" th:field="*{expenseId}"/>
-  </form>
+        <input type="text" th:field="*{dateString}"
+               placeholder="dd//mm/yyyy"
+               id="createdAt"
+               class="form-control col-12 col-sm-12 col-md-6 input-width mb-3"
+        />
+        <span th:if="${#fields.hasErrors('dateString')}"
+              th:errors="*{dateString}"></span> <!-- binding error message to custom validations for dateString -->
 
-  <div>
-    <a th:href="@{/expenses}">Back to Expenses</a>
+        <textarea rows="5" placeholder="Enter description"
+                  th:field="*{description}"
+                  class="form-control col-12 col-sm-12 col-md-6 input-width mb-3"
+        ></textarea>
+
+        <button type="submit" class="btn button_default"
+                th:text="${expense.id} != null ? 'Update':'Save'">
+        </button>
+
+        <a th:if="${expense.expenseId}"
+           th:href="@{/deleteExpense(id=${expense.expenseId})}"
+           class="btn btn-danger text-white">
+          Delete
+        </a>
+
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{expenseId}"/>
+      </form>
+      <a th:href="@{/expenses}" class="btn btn-secondary text-white mt-2">Back to Expenses</a>
+
+    </div>
+
   </div>
 
   <script th:src="@{/js/js/jquery.js}"></script>
   <script th:src="@{/js/js/jquery-ui.js}"></script> <!-- UI is for date picker, calendars etc -->
   <script th:src="@{/js/js/jquery-validator.js}"></script>
+  <script th:src="@{/js/js/bootstrap.js}"></script>
+  <script th:src="@{/js/js/registration.js}"></script>
   <script th:src="@{/js/js/expense-form.js}"></script>
 </body>
 </html>
