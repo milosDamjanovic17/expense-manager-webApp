@@ -1,0 +1,25 @@
+.main-content{
+    margin-top: 5rem;
+}
+
+.bg-header-color{
+    background-color: #8B78E6;
+}
+
+.app-header{
+    margin: 0 auto;
+    padding: 0 1.6rem;
+    max-width: 75rem;
+}
+
+.expense-item:hover{
+    background-color: #E6E6FA;
+}
+
+h2{
+    line-height: 3rem;
+}
+
+.card-background__header{
+    background-color: #f8f9fa
+}
