@@ -2,27 +2,49 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/js/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/js/css/base.css}">
+    <link rel="stylesheet" th:href="@{/js/css/response.css}">
     <title>Title</title>
 </head>
 <body>
-    <div th:if="${successMsg}">
+    <nav class="fixed-top bg-header-color py-4">
+        <div class="app-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <a th:href="@{/expenses}" class="text-white">
+              <span class="font-size-medium font-weight-bold">
+                Expense Manager
+              </span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div th:if="${successMsg}" class="container p-5 my-5 border container-top-margin">
         <h1>Success</h1>
         <p>Thanks for registering your account! Now you can start adding your expenses</p>
-        <a th:href="@{/login}">Go To Login Page</a>
+        <a th:href="@{/login}" class="btn button_default">Login Now</a>
     </div>
 
-  <div th:if="${notFound}">
+  <div th:if="${notFound}" class="container p-5 my-5 border container-top-margin">
     <h1>Expense Not Available</h1>
     <p th:text="${message}"></p>
-    <a th:href="@{/expenses}">Back to Home Page</a>
+    <a th:href="@{/expenses}" class="btn button_default">Back to Home Page</a>
   </div>
 
-  <div th:if="${serverError}">
+  <div th:if="${serverError}" class="container p-5 my-5 border container-top-margin">
       <h1>Contact Administrator</h1>
       <p th:text="${message}"></p>
-      <p th:text="${stackTrack}">Something went wrong, please contact your administrator</p>
-      <a th:href="@{/expenses}">Back to Home Page</a>
+      <p th:text="${stackTrack}">Something went wrong, please contact your administrator!</p>
+      <a th:href="@{/expenses}" class="btn button_default">Back to Home Page</a>
   </div>
+    <footer class="py-5">
+        <div class="container">
+            <p class="m-0 text-center text-dark">
+                Copyright &copy; Expense Manager - 2022 Developed by Moose D
+            </p>
+        </div>
+    </footer>
 
+    <script th:src="@{/js/js/bootstrap.js}"></script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+.bg-header-color{
+    background-color: #8B78E6;
+}
+
+.app-header {
+    margin: 0 auto;
+    padding: 0 1.6rem;
+    max-width: 75rem;
+}
+
+.container-top-margin{
+    margin-top: 6rem !important
+}
