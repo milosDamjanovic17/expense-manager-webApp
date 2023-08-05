@@ -48,6 +48,11 @@ $(function(){
                     required: 'Please enter the confirmation password',
                     equalTo: 'Passwords do not match!'
                 }
+            },
+             errorElement: 'em',
+             errorPlacement: function(error, element){
+                error.addClass('help-block');
+                error.insertAfter(element);
             }
         })
     }
